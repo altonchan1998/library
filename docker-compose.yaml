@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  bbs:
+    image: altonchan1998/bbs:latest
+    environment:
+      - "ACTIVE_PROFILES=sit"
+      - "CONFIG_SERVER_ENDPOINT=http://config:8071"
+    ports:
+      - "8081:8081"
+    depends_on:
+      config:
+        condition: service_healthy
+    networks:
+      - library-network
+  bms:
+    image: altonchan1998/bms:latest
+    environment:
+      - "ACTIVE_PROFILES=sit"
+      - "CONFIG_SERVER_ENDPOINT=http://config:8071"
+    ports:
+      - "8082:8082"
+    depends_on:
+      config:
+        condition: service_healthy
+    networks:
+      - library-network
+  config:
+    image: altonchan1998/config:latest
+    ports:
+      - "8071:8071"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8071/actuator/health" ]
+      interval: 10s
+      retries: 3
+      start_period: 10s
+      timeout: 10s
+    networks:
+      - library-network
+
+networks:
+  library-network:

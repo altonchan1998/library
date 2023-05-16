@@ -1,0 +1,35 @@
+spring:
+  profiles:
+    active: native # config files in classpath
+#    active: git # config files in git server
+  cloud:
+    config:
+      server:
+#        git:
+#          uri: https://github.com/altonchan1998/microservices-config
+#          username: altonchan1998
+#          password: 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
+#          clone-on-start: true
+#          default-label: main # branch of the config repo
+#          uri: https://github.com/${GIT_ACCOUNT}/${GIT_REPO}
+#          username: ${GIT_ACCOUNT}
+#          password: ${GIT_PASSWORD}
+        native:
+          searchLocations: classpath:/config # location of config files in repository
+#          searchLocations: file:///C:/config # location of config files in local system
+  application:
+    name: config-server
+server:
+  port: 8071
+
+management: # For actuator
+  info:
+    env:
+      enabled: true
+  endpoint:
+    shutdown:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'

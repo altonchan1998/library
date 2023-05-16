@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: dev # Required for seeking correct config.yaml from config server -> {application name}-{profile}.yaml
+#    active: ${ACTIVE_PROFILES}
+  application:
+    name: bbs # Required for seeking config.yaml from config server -> {application name}.yaml
+  config:
+    import: configserver:http://localhost:8071
+#    import: configserver:${CONFIG_SERVER_ENDPOINT}
+  jpa:
+    properties:
+      javax:
+        persistence:
+          schema-generation:
+            create-source: metadata
+            scripts:
+              action: create
+              create-target: create.sql
+    generate-ddl: true
+
+eureka:
+  instance:
+    preferIpAddress: true # by default register as hostname
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8072/eureka/

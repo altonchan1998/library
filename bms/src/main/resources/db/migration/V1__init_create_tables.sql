@@ -1,0 +1,10 @@
+create table tb_refresh_token (uuid BINARY(16) not null, jwt_token varchar(255) not null, expiry_time datetime(6), refresh_token varchar(255) not null, user_uuid BINARY(16), primary key (uuid)) engine=InnoDB;
+create table tb_system_parameter (uuid BINARY(16) not null, label varchar(255), last_modified_date date, value varchar(255), primary key (uuid)) engine=InnoDB;
+create table tb_user (uuid BINARY(16) not null, account_expiry_date date, is_activated bit, email varchar(255), is_enabled bit, last_modified_date date, is_locked bit, password varchar(255) not null, password_expiry_date date, registration_date date, primary key (uuid)) engine=InnoDB;
+create table tb_user_info (uuid BINARY(16) not null, last_name varchar(255) not null, birthday date, first_name varchar(255) not null, gender varchar(255), user_uuid BINARY(16), primary key (uuid)) engine=InnoDB;
+create table tb_user_verification_code (uuid BINARY(16) not null, verification_code varchar(255), verification_code_expiry_date datetime(6), user_uuid BINARY(16), primary key (uuid)) engine=InnoDB;
+alter table tb_refresh_token add constraint UK_e5ch8doyfr8eofiinyrqqqfbo unique (user_uuid);
+alter table tb_user add constraint UK_4vih17mube9j7cqyjlfbcrk4m unique (email);
+alter table tb_refresh_token add constraint FKfe5hjw34vqloqxgncadb2tjsx foreign key (user_uuid) references tb_user (uuid);
+alter table tb_user_info add constraint FKtot3xh49xrvru55slks18opr7 foreign key (user_uuid) references tb_user (uuid);
+alter table tb_user_verification_code add constraint FK1a1mj0mgnsnqfokqc98j0qty4 foreign key (user_uuid) references tb_user (uuid);
