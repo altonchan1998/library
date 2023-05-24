@@ -3,3 +3,14 @@ spring:
     name: eurekaserver
   config:
     import: configserver:http://localhost:8071
+
+# Self-Preservation Mode: never expires instances till % of heartbeats/min > threshold -> Prevent false-positive alarms due to network issues
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 30 # Default = 30s, the frequency that clients send heartbeats to eureka to indicate it's alive
+    lease-expiration-duration-in-seconds: 90 # Default = 90s, the duration of eureka to wait for heartbeat before evict an instance
+  server:
+    eviction-interval-timer-in-ms: 60000 # Scheduler trigger every ms to evict expired instances from registry, wil check if reached self-preservation mode first
+    renewal-percent-threshold: 0.85 # The expected % of heartbeats/min, lower than threshold result in self-preservation mode
+    renewal-threshold-update-interval-ms: 900000 # Scheduler triggered every ms to calculates the expected heartbeats/min
+    enable-self-preservation: true # Default = true
