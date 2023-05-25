@@ -1,4 +1,4 @@
-package com.altonchan.bms.model.dto.response;
+package com.altonchan.bbs.model.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -18,6 +18,55 @@ spring:
               create-target: create.sql
     generate-ddl: true
 
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true # To register all circuitBreaker related info to actuator
+        minimumNumberOfCalls: 5 # min. no. of call before determining the state of circuit
+        failureRateThreshold: 50 # Threshold rate to switch circuit state from close to open
+        waitDurationInOpenState: 30000 # The duration to wait (ms) to switch from open statue to half-open state
+        permittedNumberOfCallsInHalfOpenState: 2 # The no. of call to be tested in half-open state for determining switching to close or open state
+#    instances: # Specify config for certain instances
+#      getCircuitBreakerExample: # The circuitBreaker name defined in controller
+#        minimumNumberOfCalls: 5
+#        failureRateThreshold: 50
+#        waitDurationInOpenState: 30000
+#        permittedNumberOfCallsInHalfOpenState: 2
+  retry:
+    configs:
+      default:
+        registerHealthIndicator: true # To register all retry related info to actuator
+        getRetryExample: # The retry name defined in controller
+        maxRetryAttempts: 3 # Max. retry attempts
+        waitDuration: 2000 # The duration to wait (ms) before the next call attempt
+#    instances: # Specify config for certain instances
+#      getRetryExample: # The retry name defined in controller
+#        maxRetryAttempts: 3
+#        waitDuration: 2000
+  ratelimiter:
+    configs:
+      default:
+        registerHealthIndicator: true # To register all rateLimiter related info to actuator
+        timeoutDuration: 5000 # The duration (ms) for the thread to wait to invoke the request
+        limitRefreshPeriod: 5000 # The interval (ms) to refresh the limit
+        limitForPeriod: 1 # The no. of request can be accepted in the defined period
+#    instances: #Specify config for certain instances
+#      getRateLimitExample: # The rate limiter name defined in controller
+#        timeoutDuration: 5000
+#        limitRefreshPeriod: 5000
+#        limitForPeriod: 1
+  bulkhead:
+    configs:
+      default:
+        registerHealthIndicator: true # To register all bulkHead related info to actuator
+        maxConcurrentCalls: 2 # No. of thread assign to the api
+        maxWaitDuration: 2000 # When all thread assigned to the api are occupied, the max. duration (ms) to wait
+#    instances: #Specify config for certain instances
+#      getBulkHeadExample: # The bulkHead name defined in controller
+#        registerHealthIndicator: true
+#        maxConcurrentCalls: 2
+#        maxWaitDuration: 2000
 eureka:
   instance:
     preferIpAddress: true # by default register as hostname
