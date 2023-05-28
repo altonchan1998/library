@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: dev # Required for seeking correct config.yaml from config server -> {application name}-{profile}.yaml
+  #    active: ${ACTIVE_PROFILES}
+  application:
+    name: gateway # Required for seeking config.yaml from config server -> {application name}.yaml
+  config:
+    import: configserver:http://localhost:8071

@@ -1,0 +1,14 @@
+management: # For actuator
+  info:
+    env:
+      enabled: true
+  endpoint:
+    shutdown:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+logging:
+  level:
+    com.altonchan.gateway: debug

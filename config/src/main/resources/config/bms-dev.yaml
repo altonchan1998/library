@@ -7,8 +7,6 @@
 #    password: Pass1234
 
 spring:
-  application:
-    name: order-service
   h2:
     console.enabled: true
   datasource:
