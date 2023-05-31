@@ -26,10 +26,10 @@ eureka:
 management:
   tracing:
     sampling:
-      probability: 1.0
+      probability: 1.0 # By default, only 10% logs would be sent to zipkin for preventing performance issues in big scale projects
   zipkin:
     tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+      endpoint: http://localhost:9411/api/v2/spans # zipkin api endpoint
   metrics:
     distribution:
       percentiles-histogram:
