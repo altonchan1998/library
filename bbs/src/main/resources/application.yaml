@@ -8,6 +8,9 @@ spring:
     import: configserver:http://localhost:8071
 #    import: configserver:${CONFIG_SERVER_ENDPOINT}
   jpa:
+#    hibernate:
+#      ddl-auto: update # auto update/create db schema
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       javax:
         persistence:
