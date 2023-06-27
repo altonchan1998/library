@@ -12,6 +12,11 @@ spring:
         locator:
           enabled: false # Default true, determine if system fetch locator info from eureka
           lowerCaseServiceId: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/master/protocol/openid-connect/certs # can be found in keycloak http://localhost:8080/realms/master/.well-known/openid-configuration
 
 eureka:
   instance:
