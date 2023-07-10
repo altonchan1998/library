@@ -14,9 +14,23 @@ spring:
           lowerCaseServiceId: true
   security:
     oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://localhost:8080/realms/master/protocol/openid-connect/certs # can be found in keycloak http://localhost:8080/realms/master/.well-known/openid-configuration
+      client:
+        provider:
+          keycloak:
+            token-uri: http://localhost:8080/realms/master/protocol/openid-connect/token # where your app can get an access token once user consent has been granted
+            authorization-uri: http://localhost:8080/realms/master/protocol/openid-connect/auth # where users input the credentials
+            userinfo-uri: http://localhost:8080/realms/master/protocol/openid-connect/userinfo # where the application to fetch user details
+            user-name-attribute: preferred_username
+        registration:
+          library-gateway: # whatever name you want
+            provider: keycloak
+            client-id: library-gateway-ui
+            secret: 66iCs7FBVVtGTRUnT8q55yBY4w0DG3TM
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+#      resourceserver:
+#        jwt:
+#          jwk-set-uri: http://localhost:8080/realms/master/protocol/openid-connect/certs # can be found in keycloak http://localhost:8080/realms/master/.well-known/openid-configuration
 
 eureka:
   instance:

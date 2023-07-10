@@ -17,4 +17,18 @@
 ## Authentication Server
 * Run KeyCloak
   * docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:21.1.1 start-dev
-  
+* Create Client for client credentials grant type (for application)
+  * library-gateway
+    * Client authentication (O)
+    * Direct access grants (O)
+    * Service accounts roles (O)
+* Create Realm Role
+  * bbs
+  * bms
+* Assign the roles to the client
+* Create Client for authorization code grant type
+  * library-gateway-ui
+    * Client authentication (O)
+    * Standard flow (O)
+    * Service accounts roles (O)
+    * Valid redirect URIs: * (dev only)

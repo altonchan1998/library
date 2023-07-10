@@ -20,6 +20,11 @@ spring:
               action: create
               create-target: create.sql
     generate-ddl: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/master/protocol/openid-connect/certs # can be found in keycloak http://localhost:8080/realms/master/.well-known/openid-configuration
 
 resilience4j:
   circuitbreaker:
